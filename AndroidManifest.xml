@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="se.kicksortconsulting.android.greed.GameActivity"
+            android:label="@string/title_activity_game"
+            android:parentActivityName="se.kicksortconsulting.android.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="se.kicksortconsulting.android.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
