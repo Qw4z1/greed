@@ -13,5 +13,11 @@
     <string name="start_game">Start game</string>
     <string name="player">Player</string>
     <string name="new_player_empty_error">Enter player name</string>
+    <string name="current_player">Current player:</string>
+    <string name="score">Total score:</string>
+    <string name="round_score">Round score:</string>
+    <string name="scorebutton">Score</string>
+    <string name="save">Save</string>
+    <string name="roll">Roll dice</string>
 
 </resources>

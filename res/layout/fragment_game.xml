@@ -9,8 +9,177 @@
     tools:context="se.kicksortconsulting.android.greed.GameActivity$PlaceholderFragment" >
 
     <TextView
+        android:id="@+id/currentPlayerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:padding="8dp"
+        android:text="@string/current_player" />
+
+    <TextView
+        android:id="@+id/currentPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/currentPlayerText"
+        android:layout_alignBottom="@+id/currentPlayerText"
+        android:layout_alignRight="@+id/totalScore"
+        android:layout_toRightOf="@+id/currentPlayerText"
+        android:gravity="center"
+        android:padding="8dp"/>
+
+    <TextView
+        android:id="@+id/totalScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/scoreText"
+        android:layout_alignBottom="@+id/scoreText"
+        android:layout_alignRight="@+id/roundScore"
+        android:layout_toRightOf="@+id/currentPlayerText"
+        android:gravity="center"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/roundScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/roundScoreText"
+        android:layout_alignBottom="@+id/roundScoreText"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/currentPlayerText"
+        android:gravity="center"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/currentPlayerText"
+        android:layout_below="@+id/currentPlayerText"
+        android:padding="8dp"
+        android:text="@string/score" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" >
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_dice"
+            android:padding="8dp"
+            android:src="@drawable/dice_sides" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@+id/imageButton2"
+            android:background="@drawable/bg_dice"
+            android:padding="8dp"
+            android:src="@drawable/dice_sides" />
+
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_toLeftOf="@+id/imageButton2"
+            android:background="@drawable/bg_dice"
+            android:padding="8dp"
+            android:src="@drawable/dice_sides" />
+
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageButton1"
+            android:layout_below="@+id/imageButton1"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_dice"
+            android:padding="8dp"
+            android:src="@drawable/dice_sides" />
+
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageButton2"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_toLeftOf="@+id/imageButton3"
+            android:background="@drawable/bg_dice"
+            android:padding="8dp"
+            android:src="@drawable/dice_sides" />
+
+        <ImageButton
+            android:id="@+id/imageButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageButton3"
+            android:layout_below="@+id/imageButton3"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_dice"
+            android:padding="8dp"
+            android:src="@drawable/dice_sides" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/roundScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/scoreText"
+        android:layout_below="@+id/scoreText"
+        android:padding="8dp"
+        android:text="@string/round_score" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        style="?android:attr/buttonBarStyle" >
+
+        <Button
+            android:id="@+id/saveButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/save" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+        <Button
+            android:id="@+id/scoreButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/scorebutton" />
+        
+        <View 
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+        <Button
+            android:id="@+id/rollDiceButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/roll" />
+    </LinearLayout>
 
 </RelativeLayout>

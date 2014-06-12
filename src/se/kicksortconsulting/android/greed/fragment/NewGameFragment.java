@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 
 public class NewGameFragment extends Fragment implements OnClickListener {
 	public static final String TAG = NewGameFragment.class.getSimpleName();
@@ -29,6 +29,7 @@ public class NewGameFragment extends Fragment implements OnClickListener {
 	private int mPlayerCount;
 	private OnStartNewGameListener mCallback;
 	private LinearLayout mPlayerNameContainer;
+	private List<String> mPlayerNameList;
 	
 	public static NewGameFragment newInstance(int numberOfPlayers) {
 		NewGameFragment fragment = new NewGameFragment();
@@ -41,6 +42,7 @@ public class NewGameFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
 		mPlayerCount = getArguments().getInt(ARGS_NUM_PLAYERS);
 	}
 	
@@ -55,14 +57,24 @@ public class NewGameFragment extends Fragment implements OnClickListener {
         }
     }
     
+    @Override
+    public void onPause() {
+    	super.onPause();
+    	mPlayerNameList = createPlayerNameList();
+    	
+    }
+    
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	        Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragments_new_game, container, false);
 		mPlayerNameContainer = (LinearLayout) view.findViewById(R.id.playerNameContainer);
-
+		
 		for(int i = 1; i <= mPlayerCount; i++) {
-			addPlayerEdittext(i, inflater);
+			EditText text = addPlayerEdittext(i, inflater);
+			if(mPlayerNameList != null) {
+				text.setText(mPlayerNameList.get(i - 1));
+			}
 		}
 		
 		Button addPlayerButton = (Button) view.findViewById(R.id.addPlayerButton);
@@ -73,8 +85,8 @@ public class NewGameFragment extends Fragment implements OnClickListener {
 		
 		return view;
 	}
-	
-	private void addPlayerEdittext(int playerNumber, LayoutInflater inflater) {
+    
+	private EditText addPlayerEdittext(int playerNumber, LayoutInflater inflater) {
 		EditText playerText = (EditText) new EditText(getActivity());
 		LayoutParams params = (LayoutParams) mPlayerNameContainer.getLayoutParams();
 		params.height = LayoutParams.WRAP_CONTENT;
@@ -82,6 +94,7 @@ public class NewGameFragment extends Fragment implements OnClickListener {
 		playerText.setLayoutParams(params);
 		playerText.setHint(getResources().getString(R.string.player) + " " + playerNumber);
 		mPlayerNameContainer.addView(playerText);
+		return playerText;
 	}
 
 	@Override
@@ -97,15 +110,24 @@ public class NewGameFragment extends Fragment implements OnClickListener {
 	}
 	
 	private void startGame() {
-		List<String> playerList = new ArrayList<String>();
+		mPlayerNameList = createPlayerNameList();
 		for(int i = 0; i < mPlayerNameContainer.getChildCount(); i++) {
-			EditText text = (EditText) mPlayerNameContainer.getChildAt(i);
-			if(TextUtils.isEmpty(text.getText())) {
-				text.setError(getResources().getString(R.string.new_player_empty_error));
+			if(TextUtils.isEmpty(mPlayerNameList.get(i))) {
+				((TextView) mPlayerNameContainer.getChildAt(i))
+					.setError(getResources().getString(R.string.new_player_empty_error));
 				return;
 			}
-			playerList.add(text.getText().toString());
 		}
-		mCallback.onStartNewGame(playerList);
+		mCallback.onStartNewGame(mPlayerNameList);
+	}
+	
+	private List<String> createPlayerNameList() {
+		List<String> playerNameList = new ArrayList<String>();
+		for(int i = 0; i < mPlayerNameContainer.getChildCount(); i++) {
+			EditText text = (EditText) mPlayerNameContainer.getChildAt(i);
+
+			playerNameList.add(text.getText().toString());
+		}
+		return playerNameList;
 	}
 }
