@@ -50,15 +50,15 @@ public class GameFragment extends Fragment {
 		List<AbstractDie> dice = createDice();
 		mGame = new Game(playerNameList, rules, dice);
 	}
-	
+
 	private List<AbstractDie> createDice() {
 		List<AbstractDie> diceList = new ArrayList<AbstractDie>();
-		for(int i = 0; i < NUMBER_OF_DICE; i++) {
-			diceList.add(new SixSidedDie( i));
+		for (int i = 0; i < NUMBER_OF_DICE; i++) {
+			diceList.add(new SixSidedDie(i));
 		}
 		return diceList;
 	}
-	
+
 	private List<Rule> createRules() {
 		List<Rule> rules = new ArrayList<Rule>();
 		rules.add(new Straight());
@@ -85,20 +85,20 @@ public class GameFragment extends Fragment {
 		mDiceButton4.setImageLevel(3);
 		mDiceButton5.setImageLevel(4);
 		mDiceButton6.setImageLevel(5);
-		
+
 		mDiceButton1.setOnClickListener(mDiceClickListener);
 		mDiceButton2.setOnClickListener(mDiceClickListener);
 		mDiceButton3.setOnClickListener(mDiceClickListener);
 		mDiceButton4.setOnClickListener(mDiceClickListener);
 		mDiceButton5.setOnClickListener(mDiceClickListener);
 		mDiceButton6.setOnClickListener(mDiceClickListener);
-		
+
 		mTotalScore = (TextView) view.findViewById(R.id.totalScore);
 		mCurrentPlayer = (TextView) view.findViewById(R.id.currentPlayer);
 		mRoundScore = (TextView) view.findViewById(R.id.roundScore);
-		
+
 		updateTextfields();
-		
+
 		Button diceButton = (Button) view.findViewById(R.id.rollDiceButton);
 		diceButton.setOnClickListener(new OnClickListener() {
 
@@ -108,33 +108,33 @@ public class GameFragment extends Fragment {
 				updateTextfields();
 				updateDice();
 			}
-			
+
 		});
 
 		return view;
 	}
-	
+
 	private void updateDice() {
 		List<AbstractDie> diceList = mGame.getAllDice();
-		mDiceButton1.setImageLevel(diceList.get(0).getCurrentValue());
-		mDiceButton2.setImageLevel(diceList.get(1).getCurrentValue());
-		mDiceButton3.setImageLevel(diceList.get(2).getCurrentValue());
-		mDiceButton4.setImageLevel(diceList.get(3).getCurrentValue());
-		mDiceButton5.setImageLevel(diceList.get(4).getCurrentValue());
-		mDiceButton6.setImageLevel(diceList.get(5).getCurrentValue());
+		mDiceButton1.setImageLevel(diceList.get(0).getCurrentValue() - 1);
+		mDiceButton2.setImageLevel(diceList.get(1).getCurrentValue() - 1);
+		mDiceButton3.setImageLevel(diceList.get(2).getCurrentValue() - 1);
+		mDiceButton4.setImageLevel(diceList.get(3).getCurrentValue() - 1);
+		mDiceButton5.setImageLevel(diceList.get(4).getCurrentValue() - 1);
+		mDiceButton6.setImageLevel(diceList.get(5).getCurrentValue() - 1);
 	}
-	
+
 	private void updateTextfields() {
-		mTotalScore.setText(""+mGame.getCurrentTotal());
-		mCurrentPlayer.setText(""+mGame.getCurrentPlayerName());
-		mRoundScore.setText(""+mGame.getCurrentRoundScore());
+		mTotalScore.setText("" + mGame.getCurrentTotal());
+		mCurrentPlayer.setText("" + mGame.getCurrentPlayerName());
+		mRoundScore.setText("" + mGame.getCurrentRoundScore());
 	}
 
 	private void rollDice() {
 		mGame.rollDice();
 		mGame.calculateRoundScore();
 	}
-	
+
 	public static GameFragment newInstance(List<String> playerNames) {
 		Bundle args = new Bundle();
 		args.putStringArrayList(ARGS_PLAYER_LIST,
@@ -145,25 +145,37 @@ public class GameFragment extends Fragment {
 
 		return fragment;
 	}
-	
+
 	OnClickListener mDiceClickListener = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 			int diceId = 0;
 			switch (v.getId()) {
-			case R.id.imageButton1: diceId = 0; break;
-			case R.id.imageButton2: diceId = 1; break;
-			case R.id.imageButton3: diceId = 2; break;
-			case R.id.imageButton4: diceId = 3; break;
-			case R.id.imageButton5: diceId = 4; break;
-			case R.id.imageButton6: diceId = 5; break;
+			case R.id.imageButton1:
+				diceId = 0;
+				break;
+			case R.id.imageButton2:
+				diceId = 1;
+				break;
+			case R.id.imageButton3:
+				diceId = 2;
+				break;
+			case R.id.imageButton4:
+				diceId = 3;
+				break;
+			case R.id.imageButton5:
+				diceId = 4;
+				break;
+			case R.id.imageButton6:
+				diceId = 5;
+				break;
 			}
 			mGame.toggleSavedDice(diceId);
-			
+
 			v.setSelected(!v.isSelected());
 		}
-		
+
 	};
 
 }

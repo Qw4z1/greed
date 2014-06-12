@@ -1,5 +1,6 @@
 package se.kicksortconsulting.android.greed.rules;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,9 +14,11 @@ public class Straight implements Rule{
 	
 	@Override
 	public int applyRule(List<AbstractDie> dice) {
-		Collections.sort(dice);
-		for(int i =0 ; i < dice.size() -1; ++i) {
-			if(dice.get(i).getCurrentValue() != (dice.get(i + 1).getCurrentValue() - 1)) {
+		List<AbstractDie> copy = new ArrayList<AbstractDie>();
+		copy.addAll(dice);
+		Collections.sort(copy);
+		for(int i =0 ; i < copy.size() -1; ++i) {
+			if(copy.get(i).getCurrentValue() != (copy.get(i + 1).getCurrentValue() - 1)) {
 				return 0;
 			}
 		}

@@ -62,15 +62,9 @@ public class Game {
 		int roundScore = 0;
 		for (AbstractDie dice : mDice) {
 			dice.setIsUsed(false);
-			;
 		}
 		for (Rule rule : mRules) {
 			roundScore += rule.applyRule(mDice);
-			Log.d(TAG, "Rule: " + rule.getName());
-			Log.d(TAG, "Round score: " + roundScore);
-			for (AbstractDie dice : mDice) {
-				Log.d(TAG, "Dice " + dice.getCurrentValue() + " isUsed " + dice.isUsed());
-			}
 		}
 		mCurrentRoundScore = roundScore;
 	}
