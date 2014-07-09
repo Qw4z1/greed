@@ -18,6 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+/**
+ * Fragment responsible for handling input from the user to create a game
+ * @author qw4z1
+ *
+ */
 public class NewGameFragment extends Fragment implements OnClickListener {
 	public static final String TAG = NewGameFragment.class.getSimpleName();
 	public interface OnStartNewGameListener {

@@ -1,5 +1,10 @@
 package se.kicksortconsulting.android.greed.model;
 
+/**
+ * Simple representation of a player
+ * @author qw4z1
+ *
+ */
 public class Player {
 	private String mName;
 	private int mScore;

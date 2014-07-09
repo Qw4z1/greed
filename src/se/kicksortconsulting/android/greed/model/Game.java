@@ -7,7 +7,7 @@ import android.util.Log;
 import se.kicksortconsulting.android.greed.rules.Rule;
 
 /**
- * Class representing a game round
+ * Class representing a game of Greed. Holds information about players, rules and dice.
  * 
  * @author qw4z1
  *

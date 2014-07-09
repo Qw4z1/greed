@@ -9,14 +9,14 @@ import android.app.Activity;
 import android.os.Bundle;
 
 /**
- * Activity holding a {@link NewGameFragment}
+ * Activity controlling the flow of a game, from start to finish
  * 
  * @author qw4z1
  *
  */
 public class GameActivity extends Activity implements NewGameFragment.OnStartNewGameListener, GameFragment.GameOverListener{
 	
-	private static final int DEFAUL_NUMBER_OF_PLAYERS = 2;
+	private static final int DEFAUL_NUMBER_OF_PLAYERS = 1;
 	private static final String NEW_GAME_TAG = "newGameFragment";
 	private static final String GAME_FRAGMENT_TAG = "gameFragment";
 

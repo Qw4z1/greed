@@ -26,6 +26,10 @@ public class MainActivity extends Activity implements OnClickListener {
         newGameButton.setOnClickListener(this);
         aboutButton.setOnClickListener(this);
         rulesButton.setOnClickListener(this);
+        
+        // Not used in this version
+        aboutButton.setVisibility(View.GONE);
+        rulesButton.setVisibility(View.GONE);
     }
 
 	@Override

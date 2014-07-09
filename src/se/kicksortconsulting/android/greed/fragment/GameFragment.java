@@ -55,9 +55,15 @@ public class GameFragment extends Fragment {
 	private Game mGame;
 	private GameOverListener mListener;
 
+	/**
+	 * Callback when game is over
+	 * @author qw4z1
+	 *
+	 */
 	public interface GameOverListener {
 		public void onGameOver(String winnerName, int winningScore, int turnCount);
 	}
+	
 	public static GameFragment newInstance(List<String> playerNames) {
 		Bundle args = new Bundle();
 		args.putStringArrayList(ARGS_PLAYER_LIST,
@@ -93,13 +99,6 @@ public class GameFragment extends Fragment {
 		mDiceButton4 = (ImageButton) view.findViewById(R.id.imageButton4);
 		mDiceButton5 = (ImageButton) view.findViewById(R.id.imageButton5);
 		mDiceButton6 = (ImageButton) view.findViewById(R.id.imageButton6);
-
-//		mDiceButton1.setImageLevel(0);
-//		mDiceButton2.setImageLevel(1);
-//		mDiceButton3.setImageLevel(2);
-//		mDiceButton4.setImageLevel(3);
-//		mDiceButton5.setImageLevel(4);
-//		mDiceButton6.setImageLevel(5);
 
 		mDiceButton1.setOnClickListener(mDiceClickListener);
 		mDiceButton2.setOnClickListener(mDiceClickListener);
