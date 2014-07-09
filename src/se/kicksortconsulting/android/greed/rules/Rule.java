@@ -2,8 +2,14 @@ package se.kicksortconsulting.android.greed.rules;
 
 import java.util.List;
 
-import se.kicksortconsulting.android.greed.model.AbstractDie;
+import se.kicksortconsulting.android.greed.model.AbstractDice;
 
+/**
+ * Interface exposing the methods of a Rule.
+ * 
+ * @author qw4z1
+ *
+ */
 public interface Rule {
 	
 	/**
@@ -11,7 +17,11 @@ public interface Rule {
 	 * @param dice set of dice 
 	 * @return int the calculated score
 	 */
-	public int applyRule(List<AbstractDie> dice);
+	public int applyRule(List<AbstractDice> dice);
 	
+	/**
+	 * 
+	 * @return the name of the rule
+	 */
 	public String getName();
 }

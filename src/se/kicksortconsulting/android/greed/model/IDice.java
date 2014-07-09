@@ -7,5 +7,5 @@ public interface IDice {
 	public void reset();
 	public void setIsSaved(boolean b);
 	public int getCurrentValue();
-	public void setIsUsed(boolean b);
+	public void setUsed(boolean b);
 }

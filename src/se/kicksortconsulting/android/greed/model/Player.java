@@ -19,4 +19,8 @@ public class Player {
 	public void addToScore(int score) {
 		mScore += score;
 	}
+	
+	public boolean hasScored() {
+		return mScore > 0;
+	}
 }

@@ -19,5 +19,6 @@
     <string name="scorebutton">Score</string>
     <string name="save">Save</string>
     <string name="roll">Roll dice</string>
+    <string name="turn_ended">Your turn is over.</string>
 
 </resources>

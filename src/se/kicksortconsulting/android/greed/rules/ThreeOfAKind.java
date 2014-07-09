@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import se.kicksortconsulting.android.greed.model.AbstractDie;
+import se.kicksortconsulting.android.greed.model.AbstractDice;
 
 public class ThreeOfAKind implements Rule {
 	private static final String NAME = ThreeOfAKind.class.getSimpleName();
@@ -13,9 +13,18 @@ public class ThreeOfAKind implements Rule {
 	private static final int ONES_RULE_SCORE = 1000;
 
 	@Override
-	public int applyRule(List<AbstractDie> dice) {
-		List<AbstractDie> copy = new ArrayList<AbstractDie>();
-		copy.addAll(dice);
+	public int applyRule(List<AbstractDice> diceList) {
+		List<AbstractDice> copy = new ArrayList<AbstractDice>();
+		for(AbstractDice dice: diceList) {
+			if(!dice.isSaved()) {
+				copy.add(dice);
+			}
+		}
+		
+		if(copy.size() < 3) {
+			return 0;
+		}
+		
 		List<Integer> scoreList = new ArrayList<Integer>();
 
 		Collections.sort(copy);
@@ -29,9 +38,9 @@ public class ThreeOfAKind implements Rule {
 					.get(i + 2).getCurrentValue())
 					&& (!copy.get(i).isUsed() && !copy.get(i + 1).isUsed() && !copy
 							.get(i + 2).isUsed())) {
-				copy.get(i).setIsUsed(true);
-				copy.get(i+1).setIsUsed(true);
-				copy.get(i+2).setIsUsed(true);
+				copy.get(i).setUsed(true);
+				copy.get(i+1).setUsed(true);
+				copy.get(i+2).setUsed(true);
 				scoreList.add(copy.get(i).getCurrentValue());
 			}
 		}

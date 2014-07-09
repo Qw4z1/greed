@@ -2,29 +2,41 @@ package se.kicksortconsulting.android.greed.model;
 
 import java.util.Random;
 
-import android.util.Log;
 
-public class SixSidedDie extends AbstractDie{
-	
+/**
+ * Class representing a six sided dice
+ * 
+ * @author qw4z1
+ *
+ */
+public class SixSidedDice extends AbstractDice{
 	private static final int MAX_VALUE = 6;
-	private int mId;
+	private final int mId;
 	private Random mRandom = new Random();
 	
-	public SixSidedDie(int id) {
+	/**
+	 * Creates a dice with default values
+	 * @param id id of the dice.
+	 */
+	public SixSidedDice(int id) {
 		mId = id;
-		reset();
+		setCurrentValue(id +1);
 	}
 	
+	@Override
 	public int roll() {
-		setIsUsed(false);
+		setUsed(false);
 		setCurrentValue( mRandom.nextInt(MAX_VALUE) + 1);
-		Log.d("TEST", "Value" + getCurrentValue());
 		return getCurrentValue();
 	}
 
 	@Override
 	public int getMaxValue() {
 		return MAX_VALUE;
+	}
+	
+	public int getId() {
+		return mId;
 	}
 
 }

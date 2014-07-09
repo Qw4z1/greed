@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import se.kicksortconsulting.android.greed.model.AbstractDie;
+import se.kicksortconsulting.android.greed.model.AbstractDice;
 
+/**
+ * Award points for a straight.
+ * 
+ * @author qw4z1
+ *
+ */
 public class Straight implements Rule{
 
 	private static final int STANDARD_RULE_SCORE = 1000;
@@ -13,8 +19,8 @@ public class Straight implements Rule{
 	
 	
 	@Override
-	public int applyRule(List<AbstractDie> dice) {
-		List<AbstractDie> copy = new ArrayList<AbstractDie>();
+	public int applyRule(List<AbstractDice> dice) {
+		List<AbstractDice> copy = new ArrayList<AbstractDice>();
 		copy.addAll(dice);
 		Collections.sort(copy);
 		for(int i =0 ; i < copy.size() -1; ++i) {
@@ -23,8 +29,8 @@ public class Straight implements Rule{
 			}
 		}
 		
-		for(AbstractDie die: dice) {
-			die.setIsUsed(true);
+		for(AbstractDice die: dice) {
+			die.setUsed(true);
 		}
 		return STANDARD_RULE_SCORE;
 	}

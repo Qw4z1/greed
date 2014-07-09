@@ -6,18 +6,38 @@ import java.util.List;
 import android.util.Log;
 import se.kicksortconsulting.android.greed.rules.Rule;
 
+/**
+ * Class representing a game round
+ * 
+ * @author qw4z1
+ *
+ */
 public class Game {
 	public static final String TAG = Game.class.getSimpleName();
 
+	// Min score required for a player to collect points
+	private static final int FIRST_ROUND_THRESHOLD = 300;
+	private static final int GAME_WIN_THRESHOLD = 10000;
+
 	private List<Player> mPlayers = new ArrayList<Player>();
 	private final List<Rule> mRules;
-	private List<AbstractDie> mDice;
+	private List<AbstractDice> mDice;
 
 	private int mCurrentPlayerId;
 	private int mCurrentRoundScore;
+	private int mTurnCount = 1;
+	
+	private boolean mHasRolled;
 
+	/**
+	 * Creates a new game instance with the player names, rules and dice that should be used.
+	 * 
+	 * @param playerNames the names of all the players in this round
+	 * @param rules the list of rules that should be applied
+	 * @param dice the list of dice that should be used
+	 */
 	public Game(List<String> playerNames, List<Rule> rules,
-			List<AbstractDie> dice) {
+			List<AbstractDice> dice) {
 		createPlayers(playerNames);
 		mDice = dice;
 		mRules = rules;
@@ -29,7 +49,11 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Roll all the dice that has not been saved
+	 */
 	public void rollDice() {
+		mHasRolled = true;
 		for (IDice dice : mDice) {
 			if (!dice.isSaved()) {
 				dice.roll();
@@ -37,36 +61,58 @@ public class Game {
 		}
 	}
 
-	public List<AbstractDie> getAllDice() {
-		return mDice;
-	}
-
-	public void newTurn() {
-		mPlayers.get(mCurrentPlayerId).addToScore(mCurrentRoundScore);
-
+	/**
+	 * End current turn, add score to player total (if applicable) and reset the dice list and score.
+	 * @param addScoreToTotal
+	 */
+	public void newTurn(boolean addScoreToTotal) {
+		if (addScoreToTotal) {
+			mPlayers.get(mCurrentPlayerId).addToScore(mCurrentRoundScore);
+		}
 		if (mCurrentPlayerId == mPlayers.size() - 1) {
 			mCurrentPlayerId = 0;
+			mTurnCount++;
 		} else {
 			mCurrentPlayerId++;
 		}
 		for (IDice dice : mDice) {
 			dice.reset();
 		}
+		mCurrentRoundScore = 0;
+		mHasRolled = false;
 	}
 
+	/**
+	 * Toggle the saved state of a dice
+	 * @param id the id of the dice
+	 */
 	public void toggleSavedDice(int id) {
+		Log.d(TAG, "isSaved " + mDice.get(id).isSaved());
 		mDice.get(id).setIsSaved(!mDice.get(id).isSaved());
 	}
 
-	public void calculateRoundScore() {
+	/**
+	 * Caclulate the score for the current round with respect to the set of rules.
+	 * 
+	 * @return boolean true if score should be added. Otherwise false.
+	 */
+	public boolean calculateRoundScore() {
 		int roundScore = 0;
-		for (AbstractDie dice : mDice) {
-			dice.setIsUsed(false);
-		}
 		for (Rule rule : mRules) {
 			roundScore += rule.applyRule(mDice);
 		}
-		mCurrentRoundScore = roundScore;
+		// Must reach 300 points before score can be saved
+		if (!getCurrentPlayer().hasScored() && mCurrentRoundScore == 0) {
+			if (roundScore < FIRST_ROUND_THRESHOLD) {
+				return false;
+			}
+		}
+		
+		if (roundScore == 0) {
+			return false;
+		}
+		mCurrentRoundScore += roundScore;
+		return true;
 	}
 
 	public int getCurrentTotal() {
@@ -84,4 +130,21 @@ public class Game {
 	public int getCurrentRoundScore() {
 		return mCurrentRoundScore;
 	}
+	
+	public List<AbstractDice> getAllDice() {
+		return mDice;
+	}
+
+	public boolean isPlayerWinner() {
+		return getCurrentTotal() >= GAME_WIN_THRESHOLD;
+	}
+
+	public int getTurnCount() {
+		return mTurnCount;
+	}
+
+	public boolean hasRolled() {
+		return mHasRolled;
+	}
+
 }

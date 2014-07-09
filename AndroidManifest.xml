@@ -25,10 +25,10 @@
         <activity
             android:name="se.kicksortconsulting.android.greed.GameActivity"
             android:label="@string/title_activity_game"
-            android:parentActivityName="se.kicksortconsulting.android.MainActivity" >
+            android:parentActivityName="se.kicksortconsulting.android.greed.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="se.kicksortconsulting.android.MainActivity" />
+                android:value="se.kicksortconsulting.android.greed.MainActivity" />
         </activity>
     </application>
 
