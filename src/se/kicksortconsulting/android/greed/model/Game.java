@@ -26,6 +26,7 @@ public class Game {
 	private int mCurrentPlayerId;
 	private int mCurrentRoundScore;
 	private int mTurnCount = 1;
+	private boolean mIsFirstRound = true;
 	
 	private boolean mHasRolled;
 
@@ -80,6 +81,7 @@ public class Game {
 		}
 		mCurrentRoundScore = 0;
 		mHasRolled = false;
+		mIsFirstRound = true;
 	}
 
 	/**
@@ -102,7 +104,7 @@ public class Game {
 			roundScore += rule.applyRule(mDice);
 		}
 		// Must reach 300 points before score can be saved
-		if (!getCurrentPlayer().hasScored() && mCurrentRoundScore == 0) {
+		if (!getCurrentPlayer().hasScored() && mCurrentRoundScore == 0 && mIsFirstRound) {
 			if (roundScore < FIRST_ROUND_THRESHOLD) {
 				return false;
 			}
@@ -112,6 +114,7 @@ public class Game {
 			return false;
 		}
 		mCurrentRoundScore += roundScore;
+		mIsFirstRound = false;
 		return true;
 	}
 

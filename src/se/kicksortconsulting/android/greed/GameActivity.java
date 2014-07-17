@@ -35,6 +35,7 @@ public class GameActivity extends Activity implements NewGameFragment.OnStartNew
 
 	@Override
 	public void onStartNewGame(List<String> playerNames) {
+		GreedApplication.setSavedGame(null);
 		getFragmentManager().beginTransaction().replace(R.id.container, GameFragment.newInstance(playerNames), GAME_FRAGMENT_TAG).commit();
 		
 	}
